@@ -41,6 +41,7 @@ namespace Lojinha
 
             services.AddSingleton<IRedisCache, RedisCache>();
             services.AddScoped<IProdutoServices, ProdutoServices>();
+            services.AddScoped<ICarrinhoServices, CarrinhoServices>();
             services.AddScoped<IAzureStorage, AzureStorage>();
             Mapper.Initialize(options => options.AddProfile<ProdutoProfile>()); //Inicializando o AutoMapper
             services.AddAutoMapper();

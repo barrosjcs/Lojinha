@@ -66,11 +66,16 @@ namespace Lojinha.Controllers
         {
             //return Json(await _produtoStorage.ObterProdutos());
             var produtos = await _produtoStorage.ObterProdutos();
-            var vm = _mapper.Map<ProdutoViewModel>(produtos); //Usando o AutoMapper
+            var vm = _mapper.Map<List<ProdutoViewModel>>(produtos); //Usando o AutoMapper
 
             return View(vm);
         }
 
+        public async Task<IActionResult> Details(string id)
+        {
+            var produto = await _produtoStorage.ObterProduto(id);
+            return Json(produto);
 
+        }
     }
 }

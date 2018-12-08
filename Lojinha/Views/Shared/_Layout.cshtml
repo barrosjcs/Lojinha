@@ -35,6 +35,11 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                 </ul>
             </div>
+            <p class="navbar-text carrinho-placeholder"></p>
+            <form action="/Carrinho/Finalizar" method="post">
+                <br/>
+                <button type="submit" class="btn btn-danger">Finalizar compra</button>
+            </form>
         </div>
     </nav>
     <div class="container body-content">

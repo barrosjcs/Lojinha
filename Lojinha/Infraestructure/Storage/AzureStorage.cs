@@ -37,6 +37,30 @@ namespace Lojinha.Infraestructure.Storage
             table.ExecuteAsync(operation).Wait();
         }
 
+        public async Task<Produto> ObterProduto(string id)
+        {
+            var table = _tableClient.GetTableReference("produtos");
+            table.CreateIfNotExistsAsync().Wait();
+
+            var query = new TableQuery<ProdutoEntity>()
+                .Where(
+                TableQuery.GenerateFilterCondition(
+                    "PartitionKey"
+                    , QueryComparisons.Equal
+                    , "13net"))
+                .Where( 
+                TableQuery.GenerateFilterCondition("RowKey"
+                    , QueryComparisons.Equal
+                    , id));
+            TableContinuationToken token = null;
+
+            var segment = await table.ExecuteQuerySegmentedAsync(query, token);
+            var produtoEntity = segment.FirstOrDefault();
+
+
+            return JsonConvert.DeserializeObject<Produto>(produtoEntity.Produto);
+        }
+
         public async Task<List<Produto>> ObterProdutos()
         {
             var table = _tableClient.GetTableReference("produtos");
